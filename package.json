@@ -7,7 +7,7 @@
     "node": "8.10.0"
   },
   "scripts": {
-    "start": "node src/server/index-prod.js",
+    "start": "node src/server/index.js",
     "build": "webpack --mode production",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon  src/server/index.js --exec babel-node",
