@@ -5,6 +5,8 @@ import express from 'express';
 import os from 'os';
 import mongodb from 'mongodb';
 import bodyParser from 'body-parser';
+import http from 'http';
+import normalizePort from 'normalize-port';
 
 const app = express();
 
@@ -81,4 +83,8 @@ app.post( '/api/createCategory', jsonParser, ( request, response ) => {
     });
 });
 
-app.listen( 8080, () => console.log( 'Listening on port 8080!' ));
+// get port from environment and store in Express
+var port = normalizePort( process.env.PORT || '8080' ); // process.env.PORT lets the port be set by Heroku
+app.set( 'port', port );
+
+app.listen( port, () => console.log( `Listening on port ${port}!` ));

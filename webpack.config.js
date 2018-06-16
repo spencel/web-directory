@@ -1,13 +1,14 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const path = require( 'path' );
+const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
+const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
 
 const outputDirectory = 'dist';
 
 module.exports = {
   entry: './src/client/index.js',
+  //entry: './src/bin/www',
   output: {
-    path: path.join(__dirname, outputDirectory),
+    path: path.join( __dirname, outputDirectory ),
     filename: 'bundle.js'
   },
   module: {
@@ -33,7 +34,7 @@ module.exports = {
     }
   },
   plugins: [
-    new CleanWebpackPlugin([outputDirectory]),
+    new CleanWebpackPlugin( [outputDirectory] ),
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.ico'
