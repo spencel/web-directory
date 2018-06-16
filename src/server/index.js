@@ -83,7 +83,7 @@ app.post( '/api/createCategory', jsonParser, ( request, response ) => {
     });
 });
 
-// get port from environment and store in Express
+// get port from environment and store in Express.
 var port = normalizePort( process.env.PORT || '8080' ); // process.env.PORT lets the port be set by Heroku
 app.set( 'port', port );
 
