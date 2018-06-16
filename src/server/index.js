@@ -5,7 +5,6 @@ import express from 'express';
 import os from 'os';
 import mongodb from 'mongodb';
 import bodyParser from 'body-parser';
-import http from 'http';
 import normalizePort from 'normalize-port';
 
 const app = express();
