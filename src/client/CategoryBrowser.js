@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import './categoryBrowser.css';
+import ContextMenu from './ContextMenu';
 
-export default class CategoryBrowser extends Component {
+class CategoryBrowser extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      categories: null
+			categories: null,
+			contextMenuVisible: false
 		}
 		this.onCreateCategoryKeyUp = this.onCreateCategoryKeyUp.bind( this ); // required for functions to use 'this' from this class, e.g., using this.state, called from render function
-  }
+		this.onContextMenu = this.onContextMenu.bind( this );
+	}
 
   componentDidMount() {
     fetch( '/api/getCategories' )
@@ -23,13 +26,26 @@ export default class CategoryBrowser extends Component {
 	getCategoriesJsx( categories ) {
 		var categoriesJsx = [];
 		for ( var i = 0; i < this.state.categories.length; i++ ) {
-			categoriesJsx.push( <div key={i} id={categories[ i ]._id} onMouseUp={this.onCategoryMouseUp} onContextMenu={this.onPreventContextMenu}>{categories[ i ].name}</div> );
+			categoriesJsx.push( <div key={i} id={categories[ i ]._id} onMouseUp={this.onCategoryMouseUp} onContextMenu={this.onContextMenu}>{categories[ i ].name}</div> );
 		}
 		return categoriesJsx;
 	}
 
-	onPreventContextMenu( event ) {
+	onContextMenu( event ) {
 		event.preventDefault();
+		var left = event.pageX;
+		var top = event.pageY;
+		console.log( event.target.id );
+		console.log( event );
+		this.setState(() => {
+			console.log( left );
+			console.log( top );
+			return { 
+				contextMenuVisible: true,
+				left: left,
+				top: top
+			};
+		});
 	}
 
 	onCreateCategoryKeyUp( event ) {
@@ -62,7 +78,6 @@ export default class CategoryBrowser extends Component {
 
 	onCategoryMouseUp( event ) {
 		event.stopPropagation();
-		console.log( event.target.id );
 	}
 
   render() {
@@ -71,10 +86,15 @@ export default class CategoryBrowser extends Component {
     return (
       <div className='CategoryBrowser'>
         {this.state.categories ? (
-          <div>
-						<input className='CreateCategory' type='text' placeholder='new' onKeyUp={this.onCreateCategoryKeyUp}/>
+					<div>
+						<input className='CreateCategory' type='text' placeholder='new' onKeyUp={this.onCreateCategoryKeyUp}/>,
 						{ this.getCategoriesJsx( this.state.categories ) }
-          </div>
+						{this.state.contextMenuVisible === true ? (
+							<ContextMenu left={this.state.left} top={this.state.top} />
+						) : (
+							''
+						)}
+					</div>
         ) : (
           <h1>Loading CategoryBrowser component.. please wait!</h1>
         )}
@@ -82,3 +102,9 @@ export default class CategoryBrowser extends Component {
     );
   }
 }
+
+CategoryBrowser.propTypes = {
+
+}
+
+export default CategoryBrowser;

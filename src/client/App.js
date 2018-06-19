@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './app.css';
 import CategoryBrowser from './CategoryBrowser';
+import ContextMenu from './ContextMenu';
 
 export default class App extends Component {
   constructor( props ) {
