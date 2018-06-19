@@ -46,20 +46,6 @@ const categoriesCollectionName = 'categories';
 
 // Server
 
-app.get( '/api/test', ( request, response ) => {
-  console.log( 'starting /api/test' );
-  mongo.db.listCollections().toArray(( error, result ) => {
-    if ( error ) {
-      console.error( error );
-      return;
-    }
-    response.send({
-      username: os.userInfo().username,
-      result: result
-    });
-  });
-});
-
 app.get( '/api/getCategories', ( request, response ) => {
   mongo.db
     .collection( categoriesCollectionName )
@@ -70,16 +56,23 @@ app.get( '/api/getCategories', ( request, response ) => {
 });
 
 app.post( '/api/createCategory', jsonParser, ( request, response ) => {
-  console.log( 'request:' );
-  console.log( request );
-  console.log( 'request.body:' );
-  console.log( request.body );
   mongo.db
     .collection( categoriesCollectionName )
     .insertOne({ name: request.body.categoryName }, null, ( error, result ) => {
       console.log( result.ops[0] );
       response.send( JSON.stringify( result.ops[0] ));
     });
+});
+
+app.post( '/api/deleteCategory', jsonParser, ( request, response ) => {
+  console.log( request.body.categoryId );
+  mongo.db
+  .collection( categoriesCollectionName )
+  .deleteOne({ '_id': new mongodb.ObjectID( request.body.categoryId ) }, ( error, result ) => {
+    if ( error ) console.error( error );
+    console.log( result.result );
+    response.send( JSON.stringify({ isDeleted: true }));
+  });
 });
 
 // get port from environment and store in Express.

@@ -1,0 +1,13 @@
+.ContextMenu {
+	position: fixed;
+	display: inline-block;
+	/*border: 1px solid hsla( 0, 0, 50%, 0 );*/
+	border: 1px solid hsla(0,0%,90%,100);
+	background-color: white;
+}
+.ContextMenu div {
+	padding: 1px;	
+}
+.ContextMenu div:hover {
+	background-color: hsla(0,0%,90%,100);	
+}

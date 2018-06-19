@@ -1,7 +1,0 @@
-.ContextMenu {
-	position: fixed;
-	display: inline-block;
-	/*border: 1px solid hsla( 0, 0, 50%, 0 );*/
-	border: 1px solid gray;
-	background-color: white;
-}

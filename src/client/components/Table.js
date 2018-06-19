@@ -11,7 +11,7 @@ export default class Table extends Component {
 
   componentDidMount() {
     fetch( '/api/getCategories' )
-      .then( response => response.json() )
+      .then( response => response.json())
       .then( result => {
         console.log( result );
         //this.setState({ table: result });
